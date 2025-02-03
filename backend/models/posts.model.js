@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 const PostSchema=mongoose.Schema({
-    userID:{
+    userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
     },
     body:{
         type:String,
-        required:true,
+        required:true
     },
     likes:{
         type:Number,

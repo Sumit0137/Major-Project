@@ -31,9 +31,10 @@ const workSchema=new mongoose.Schema({
 });
 
 const ProfileSchema =new mongoose.Schema({
-    userID:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
+    userId:{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "User",  // Reference to User collection
+        required: true 
     },
     bio:{
         type:String,

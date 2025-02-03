@@ -1,11 +1,83 @@
 POST http://localhost:9080/register HTTP/1.1
 content-Type: application/json
 
+{
+  "username":"Sumit",
+  "password":"Verma",
+  "email":"vermaSumit1046@gmail.com",
+  "name":"Sumit Verma"
+  
+}
+
+
+# {
+    
+#   "username": "Rahul",
+#   "password": "Sharma",
+#   "email": "RahulSharma@gmail.com",
+#   "name": "Rahul Sharma"
+
+# }
+
+###
+
+POST http://localhost:9080/login HTTP/1.1
+content-Type: application/json
 
 {
-    "username": "",
-    "password": "",
-    "email": "",
-    "name": ""
+    
+  "email":"vermaSumit1046@gmail.com",
+  "password": "Verma"
+
 }
+###
+POST http://localhost:9080/login HTTP/1.1
+content-Type: application/json
+
+{
+    
+  "email":"RahulSharma@gmail.com",
+  "password": "Sharma"
+
+}
+
+
+###
+
+GET http://localhost:9080/get_user_and_profile
+Content-Type:application/json
+
+{
+  "token":"79d52e1d23d5b6557d78b15cb5586da10b4c1432c1be8ae81a8e0ece7fba2640"
+}
+
+
+### 
+
+POST http://localhost:9080/update_profile_data 
+Content-Type: application/json
+
+{
+  "token":"e617e5e90090e6bb4e4c9802b40c2f07e7c0b82dd6f1a49a0b748944c2f463f6",
+  "bio":"",
+  "currentPost":"CTO",
+  "pastWork":[
+    {
+      "company":"Microsoft",
+      "position":"CTO",
+      "years":"2+"
+    }
+  ],
+  "education" :[
+    {
+      "school":"IIIT",
+      "degree":"B.TECH",
+      "fieldOfStudy":"2015-2019"
+    }
+  ]
+}
+
+###
+GET http://localhost:9080/users/get_all_user
+Content-Type: application/json
 

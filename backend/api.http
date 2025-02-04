@@ -48,7 +48,7 @@ GET http://localhost:9080/get_user_and_profile
 Content-Type:application/json
 
 {
-  "token":"79d52e1d23d5b6557d78b15cb5586da10b4c1432c1be8ae81a8e0ece7fba2640"
+  "token":"fb9ef3ff7ae69655d6aed2b77471ff9514810d402f27b2a51be081ece970033f"
 }
 
 
@@ -58,7 +58,7 @@ POST http://localhost:9080/update_profile_data
 Content-Type: application/json
 
 {
-  "token":"e617e5e90090e6bb4e4c9802b40c2f07e7c0b82dd6f1a49a0b748944c2f463f6",
+  "token":"fb9ef3ff7ae69655d6aed2b77471ff9514810d402f27b2a51be081ece970033f",
   "bio":"",
   "currentPost":"CTO",
   "pastWork":[
@@ -78,6 +78,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:9080/users/get_all_user
+GET http://localhost:9080/user/get_all_user
 Content-Type: application/json
 

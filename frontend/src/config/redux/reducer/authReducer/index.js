@@ -1,4 +1,3 @@
-// const { loginUser, registerUser } = require("../../action/authAction")
 import { createSlice } from "@reduxjs/toolkit"
 import { loginUser,registerUser } from "../../action/authAction"
 
@@ -20,14 +19,18 @@ const authSlice= createSlice({
     reducers:{
         reset:()=>initialState,
         handleLoginUser:(state)=>{
-            state.message="hello"
+            state.message="hello";
+        },
+        emptyMessage:(state)=>{
+            state.message=""
         }
     },
 
     extraReducers:(builder)=>{
-        builder.addCase(loginUser.pending,(state)=>{
-            state.isLoading=true
-            state.message="Knocking the door...."
+        builder
+        .addCase(loginUser.pending,(state)=>{
+            state.isLoading=true;
+            state.message="Knocking the door....";
         })
 
         .addCase(loginUser.fulfilled,(state,action)=>{
@@ -35,12 +38,13 @@ const authSlice= createSlice({
             state.isError=false;
             state.isSuccess=true;
             state.loggedIn=true;
-            state.message="Login is Successfull"
+            state.message="Login is Successfull";
         })
         .addCase(loginUser.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
-            state.message=action.payload
+            state.message=action.payload;
+
         })
         .addCase(registerUser.pending,(state)=>{
             state.isLoading=true
@@ -50,15 +54,18 @@ const authSlice= createSlice({
             state.isLoading=false;
             state.isError=false;
             state.isSuccess=true;
-            state.loggedIn=true;
-            state.message="Registration is Successfull"
+            state.message={
+                message:"Registration is Successfull, Please login in"
+            }
         })
         .addCase(registerUser.rejected,(state,action)=>{
             state.isLoading=false;
             state.isError=true;
             state.message=action.payload
-        })
-    }
-})
+        });
+    },
+});
+
+export const {reset,emptyMessage}=authSlice.actions;
 
 export default authSlice.reducer

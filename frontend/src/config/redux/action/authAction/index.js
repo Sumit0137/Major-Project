@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import clientServer from "@/config/index";
 
+// Login User
 export const loginUser=createAsyncThunk(
     "user/login",
     async(user,thunkAPI)=>{
@@ -45,22 +46,42 @@ export const registerUser=createAsyncThunk(
         }
     }
 )
-export const getAboutUser=createAsyncThunk(
-    "user/getAboutUser",
-    async(user,thunkAPI)=>{
-        try{
-            const response=await clientServer.get("/get_user_and_profile",{
-                params:{
-                    token:user.token
-                }
-            })
-            return thunkAPI.fulfillWithValue(response.data)
+// export const getAboutUser=createAsyncThunk(
+//     "user/getAboutUser",
+//     async(_,thunkAPI)=>{
+//         try{
+//             const response=await clientServer.get("/get_user_and_profile",{
+//                 params:{
+//                     token:user.token
+//                 }
+//             })
+//             return thunkAPI.fulfillWithValue(response.data)
             
-        } catch(error){
-            return thunkAPI.rejectWithValue(error.response.data)
+//         } catch(error){
+//             return thunkAPI.rejectWithValue(error.response.data)
+//         }
+//     }
+// )
+
+//  ✅ Fetch User Profile Action
+export const getAboutUser = createAsyncThunk(
+    "user/getAboutUser",
+    async (_, thunkAPI) => {
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) return thunkAPI.rejectWithValue("No token available");
+
+            const response = await clientServer.get("/get_user_and_profile", {
+                params: { token },
+            });
+
+           // return response.data;
+return thunkAPI.fulfillWithValue(response.data)
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.response?.data || "Failed to fetch user data");
         }
     }
-)
+);
 
 export const getAllUsers=createAsyncThunk(
     "users/getAllUsers",
@@ -75,6 +96,9 @@ export const getAllUsers=createAsyncThunk(
     }
 
 )
+
+
+
 
 
 

@@ -24,7 +24,7 @@ router.route("/post").post(upload.single('media'), createPost)
 
 // delete flag 
 router.route("/posts").get(getAllPosts)
-router.route("/delete_post").post(deletePost)
+router.route("/delete_post").delete(deletePost)
 
 // Implementing CRUD functionality
 router.route("/comment").post(commentPost);

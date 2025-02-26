@@ -6,6 +6,7 @@ import PdfDocument from 'pdfkit';
 import fs from "fs";
 import ConnectionRequest from "../models/connections.model.js";
 import Post from "../models/posts.model.js";
+import Comment from "../models/comments.model.js"
 // import { ConnectionStates } from "mongoose";
 
 const convertUserDataToPdf= async(userData)=>{
@@ -342,7 +343,7 @@ export const commentPost=async(req,res)=>{
         const comment =new Comment({
             userId:user._id,
             postId:post_id,
-            comment:commentBody
+            body:commentBody
         });
 
         await comment.save();

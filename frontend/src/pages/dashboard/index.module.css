@@ -165,7 +165,7 @@
     border-radius:10px;
 }
 
-.postCommentConmtainer>inpput:foucs{
+.postCommentContainer>input:focus{
     border:1px solid silver;
 }
 .postCommentContainer__commentBtn{

@@ -9,6 +9,7 @@ import Post from "../models/posts.model.js";
 import Comment from "../models/comments.model.js"
 // import { ConnectionStates } from "mongoose";
 
+
 const convertUserDataToPdf= async(userData)=>{
     const doc=new PdfDocument();
     const outputPath=crypto.randomBytes(32).toString("hex")+".pdf";
@@ -205,6 +206,8 @@ export const getAllUserProfile=async (req,res)=>{
 export const downloadProfile=async (req,res)=>{
 
     const user_id=req.query.id;
+    console.log(user_id)
+    // return res.json({"message" :"Not Implemented"});
 
     const userProfile=await Profile.findOne({userId:user_id})
     .populate('userId','name username email profilePicture');
@@ -255,26 +258,83 @@ export const sendConnectionRequest=async(req,res)=>{
     }
 }
 
-export const getMyConnectionsRequests=async(req,res)=>{
-    const{token}=req.body;
+export const getMyConnectionsRequests = async (req, res) => {
+    try {
+        const { token } = req.query;
 
-    try{
-        const user=await User.findOne({token});
-
-        if(!user){
-            return res.status(404).json({message:"User not found"})
+        if (!token) {
+            return res.status(400).json({ message: "Token is required" });
         }
 
-        const connections=await ConnectionRequest.findOne({userId:user._id}).populate(`connectionId`,`name username email profilePicture`);
+        const user = await User.findOne({ token });
 
-        return res.json({connections})
-    }catch(error){
-        return res.status(500).json({message:error.message})
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        const connections = await ConnectionRequest.find({ userId: user._id })
+            .populate("connectionId", "name username email profilePicture");
+
+        return res.json({ connections });
+    } catch (error) {
+        console.error("Error fetching connection requests:", error);
+        return res.status(500).json({ message: error.message });
     }
-}
+};
+
+
+// export const getMyConnectionsRequests=async(req,res)=>{
+//     const{token}=req.query;
+
+//     try{
+//         const user=await User.findOne({token});
+
+//         if(!user){
+//             return res.status(404).json({message:"User not found"})
+//         }
+
+//         const connections=await ConnectionRequest.findOne({userId:user._id}).populate(`connectionId`,`name username email profilePicture`);
+
+//         return res.json({connections})
+//     }catch(error){
+//         return res.status(500).json({message:error.message})
+//     }
+// }
+
+
+
+
+
+// export const getMyConnectionsRequests = async (req, res) => {
+//     try {
+//         // Extract token from query params instead of body
+//         const { token } = req.query;
+
+//         if (!token) {
+//             return res.status(400).json({ message: "Token is required" });
+//         }
+
+//         // Find user by token
+//         const user = await User.findOne({ token });
+
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         // Get all connection requests for this user
+//         const connections = await ConnectionRequest.find({ userId: user._id })
+//             .populate("connectionId", "name username email profilePicture");
+
+//         return res.json({ connections });
+//     } catch (error) {
+//         console.error("Error fetching connection requests:", error);
+//         return res.status(500).json({ message: error.message });
+//     }
+// };
+
 
 export const WhatAreMyConnections=async (req,res)=>{
-    const {token}=req.body;
+    const {token}=req.query;
 
     try{
         const user=await User.findOne({token});

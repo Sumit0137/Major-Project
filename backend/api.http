@@ -58,8 +58,8 @@ POST http://localhost:9080/update_profile_data
 Content-Type: application/json
 
 {
-  "token":"fb9ef3ff7ae69655d6aed2b77471ff9514810d402f27b2a51be081ece970033f",
-  "bio":"",
+  "token":"b580a79a1a9bd11821fe3efe3fcad6ea7887327eacd783be0921dd1fee080cbe",
+  "bio":"Hey i am Neha, I am from Chandigarh, I work in Amazon company",
   "currentPost":"CTO",
   "pastWork":[
     {

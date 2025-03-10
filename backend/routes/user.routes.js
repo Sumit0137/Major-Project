@@ -33,8 +33,8 @@ router.route("/user/get_all_users").get(getAllUserProfile)
 router.route("/user/download_resume").get(downloadProfile)
 
 // Connection Request Functionality
-router.route("user/send_connection_request").post(sendConnectionRequest);
-router.route("user/getConnectionRequests").get(getMyConnectionsRequests);
+router.route("/user/send_connection_request").post(sendConnectionRequest);
+router.route("/user/getConnectionRequests").get(getMyConnectionsRequests);
 router.route("/user/user_connection_request").get(WhatAreMyConnections);
 router.route("/user/accept_connection_request").post(acceptConnectionRequest);
 

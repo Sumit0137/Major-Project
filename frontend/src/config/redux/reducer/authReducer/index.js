@@ -107,7 +107,7 @@ const authSlice= createSlice({
             .addCase(getMyConnectionRequests.fulfilled,(state,action)=>{
                 state.connectionRequest=action.payload
             })
-            
+
             .addCase(getMyConnectionRequests.rejected,(state,action)=>{
                 state.message=action.payload
             })

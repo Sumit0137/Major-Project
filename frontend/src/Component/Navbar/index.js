@@ -29,7 +29,9 @@ export default function NavbarComponent() {
                 <div>Hey {authState.user?.name || "Guest"}</div> // ✅ No crash if `user` is undefined
               )}
 
-              <p style={{fontWeight:"bold",cursor:"pointer"}}> Profile</p>
+              <p onClick={()=>{
+                router.push("/profile")
+              }} style={{fontWeight:"bold",cursor:"pointer"}}> Profile</p>
               <p onClick={()=>{
                 localStorage.removeItem("token")
                 router.push("/login")

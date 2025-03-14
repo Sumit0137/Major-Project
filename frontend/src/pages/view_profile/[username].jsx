@@ -106,6 +106,7 @@ export default function ViewProfilePage({ userProfile }) {
 
                   </div>
                 </div>
+                
                 <div>
                   <p>{userProfile.bio}</p>
                 </div>
@@ -127,8 +128,6 @@ export default function ViewProfilePage({ userProfile }) {
                   );
                 })}
               </div>
-
-
               <div style={{ flex: "0.2" }}></div>
             </div>
           </div>

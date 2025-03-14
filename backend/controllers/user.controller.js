@@ -101,23 +101,79 @@ export const register= async(req,res)=>{
 
   }
 
-  export const uploadProfilePicture=async(req,res)=>{
-    const{token}=req.body;
+//   export const uploadProfilePicture=async(req,res)=>{
+//     const{token}=req.body;
 
-    try{
-        const user=await User.findOne({token:token});
+//     try{
+//         const user=await User.findOne({token:token});
 
-        if(!user){
-            return res.status(404).json({message:"user not found"})
+//         if(!user){
+//             return res.status(404).json({message:"user not found"})
+//         }
+//         user.ProfilePicture=req.file.filename;
+//         await user.save();
+
+//         return res.json({message:"Profile Picture Upload"})
+//     }catch(error){
+//         return res.status(500).json({message:error.message})
+//     }
+//   }
+
+// export const uploadProfilePicture = async (req, res) => {
+//     const { token } = req.body;
+
+//     try {
+//         // 🔹 Check if a file was uploaded
+//         if (!req.file) {
+//             return res.status(400).json({ message: "No file uploaded" });
+//         }
+
+//         // 🔹 Find the user by token
+//         const user = await User.findOne({ token: token });
+
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         // 🔹 Update the user's profile picture
+//         user.profilePicture = req.file.filename;
+//         await user.save();
+
+//         // 🔹 Return the new profile picture path
+//         return res.json({
+//             message: "Profile picture uploaded successfully",
+//             profilePicture: req.file.filename,  // 👈 Return the new image path
+//         });
+//     } catch (error) {
+//         return res.status(500).json({ message: error.message });
+//     }
+// };
+
+export const uploadProfilePicture = async (req, res) => {
+    const { token } = req.body;
+
+    try {
+        const user = await User.findOne({ token });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
-        user.ProfilePicture=req.file.filename;
+
+        // Update the correct field
+        user.profilePicture = req.file.filename;  
         await user.save();
 
-        return res.json({message:"Profile Picture Upload"})
-    }catch(error){
-        return res.status(500).json({message:error.message})
+        return res.json({
+            message: "Profile Picture Uploaded",
+            profilePicture: user.profilePicture,  // Send the updated image path
+        });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
     }
-  }
+};
+
+
+
 
 
 // Updating and getting User Profile

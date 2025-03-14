@@ -41,6 +41,12 @@
 .card__profileContainer {
     display: flex;
 }
+.card__profileContainer>img{
+    width:3.4rem;
+    height:auto;
+    height:3.4rem;
+    object-fit: cover;
+}
 
 .backDrop__overlay{
     width:10em;
@@ -51,10 +57,21 @@
     bottom:-30%;
     left:8%;
     text-align:center;
-    background: black;
     z-index:4;
-   opacity:0.4;
+    transition:all 0.4s;
+    cursor:pointer;
+    color:white;
+    opacity:0.0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 } 
+
+.backDrop__overlay:hover {
+    opacity:0.8;
+    background: black;
+}
 
 .connectBtn {
     padding-inline:0.8rem;
@@ -91,3 +108,40 @@
     border-radius: 10px;
     box-shadow:10px 10px 15px rgb(173 ,173,173)
 }
+
+.profileContainer__details input {
+    outline:none;
+    border-style:none;
+    padding-inline: 10px;
+    padding-block:9px;
+    width:fit-content;
+}
+
+.nameEdit{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+
+
+.updateProfileBtn {
+    padding-inline:0.8rem;
+    padding-block:0.3rem;
+    background:rgba(3,93,183,0.905);
+    outline:none;
+    border:none;
+    color:white;
+    border-radius:10px;
+    cursor:pointer;
+    width:fit-content;
+}
+
+.profileContainer__details textarea {
+    outline:none;
+    border:none;
+
+    padding-inline:10px;
+    padding-block:9px;
+    font-family:"Poppins" !important;
+    font-size:1.1rem;
+}
+

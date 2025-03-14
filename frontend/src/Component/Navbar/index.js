@@ -26,7 +26,7 @@ export default function NavbarComponent() {
               {!authState.profileFetched ? (
                 <p>Loading...</p>
               ) : (
-                <div>Hey {authState.user?.name || "Guest"}</div> // ✅ No crash if `user` is undefined
+                <div>Hey {authState.user?.userId?.name || "Guest"}</div> // ✅ No crash if `user` is undefined
               )}
 
               <p onClick={()=>{

@@ -206,13 +206,30 @@ const authSlice = createSlice({
                 state.profileFetched = false;
             })
             //getting error here
+            // .addCase(getAboutUser.fulfilled, (state, action) => {
+            //     console.log("Received user data:", action.payload); // ✅ Debugging Log
+            //     state.isLoading = false;
+            //     state.isError = false;
+            //     state.profileFetched = true;
+            //     state.user = action.payload; // ✅ Ensure correct structure
+            // })
+
             .addCase(getAboutUser.fulfilled, (state, action) => {
                 console.log("Received user data:", action.payload); // ✅ Debugging Log
+                
                 state.isLoading = false;
                 state.isError = false;
                 state.profileFetched = true;
-                state.user = action.payload; // ✅ Ensure correct structure
+            
+                // Ensure correct structure
+                state.user = {
+                    ...action.payload, // ✅ Keep original data
+                    ...(action.payload.userId || {}) // ✅ Merge userId fields if available
+                };
+            
+                console.log("Updated User State:", state.user); // ✅ Debugging Log
             })
+            
             .addCase(getAboutUser.rejected, (state, action) => {
                 console.error("Error fetching user:", action.payload);
                 state.isLoading = false;

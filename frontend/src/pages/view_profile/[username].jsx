@@ -140,7 +140,7 @@ export default function ViewProfilePage({ userProfile }) {
                 userProfile.pastWork.map((work, index) => {
                   return (
                     <div key={index} className={styles.workHistoryCard}>
-                      <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}> {work.company} -{work.postition}
+                      <p style={{ fontWeight: "bold", display: "flex", alignItems: "center", gap: "0.8rem" }}> {work.company} -{work.position}
                       </p>
 
                       <p>{work.years}</p>

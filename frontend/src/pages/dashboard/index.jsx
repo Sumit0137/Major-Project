@@ -83,16 +83,27 @@ export default function Dashboard() {
                   return (
                     <div key={post._id} className={styles.singleCard}>
                       <div className={styles.singleCard__profileContainer}>
-                        <img className={styles.userProfile} src={`${BASE_URL}/${post.userId.profilePicture}`} alt="" />
+                        <img className={styles.userProfile} src={`${BASE_URL}/${post?.userId?.profilePicture}`} alt="" />
                         <div>
-                          <div style={{ display: "flex", gap: "1.2rem" }}>
-                            <p style={{ fontWeight: "bold" }}>{post.userId.name}</p>
+                          <div style={{ display: "flex", gap: "1.2rem" ,
+                            alignItems: "center" 
+                          }}>
+                            <p style={{ fontWeight: "bold" }}>{post?.userId?.name}</p>
 
                             {post?.userId?._id && authState?.user?._id && post.userId._id === authState.user._id && (
                               <div onClick={async () => {
                                 await dispatch(deletePost({ post_id: post._id }))
                                 await dispatch(getAllPosts())
-                              }} style={{ cursor: "pointer" }}>
+                              }} style={{
+                                //  cursor: "pointer"
+                                position: "absolute",
+                                top: "10px",
+                                right: "10px",
+                                cursor: "pointer",
+                                background: "rgba(255,255,255,0.7)",
+                                padding: "5px",
+                                borderRadius: "50%",
+                                  }}>
                                 <svg
                                   style={{ height: "1.4em", color: "red", marginLeft: "12rem" }}
                                   xmlns="http://www.w3.org/2000/svg"
@@ -113,11 +124,11 @@ export default function Dashboard() {
 
                           </div>
 
-                          <p style={{ color: "grey" }}>@{post.userId.username}</p>
+                          <p style={{ color: "grey" }}>@{post?.userId?.username}</p>
                           <p style={{ paddingTop: "1.3rem" }}>{post.body}</p>
 
                           <div className={styles.singleCard__image}>
-                            <img src={`${BASE_URL}/${post.media}`} />
+                          {post.media !==""? <img src={`${BASE_URL}/${post.media}`} />:<></>}
                           </div>
 
                           <div className={styles.optionsContainer}>
@@ -181,24 +192,24 @@ export default function Dashboard() {
 
                 {postState.comments.length !== 0 &&
                   <div>
-                    {postState.comments.map((comment, index) => {
+                    {postState.comments.map((postComment, index) => {
                       return (
-                        <div className={styles.singleComment} key={commentText._id}>
+                        <div className={styles.singleComment} key={postComment._id}>
                           <div className={styles.singleComment__profileContainer} >
-                            <img src={`${BASE_URL}/${comment.userId.profilePicture}`} alt="" />
+                            <img src={`${BASE_URL}/${postComment.userId.profilePicture}`} alt="" />
                            
                             <div>
                               {/* <p style={{ fontWeight: "bold", fontSize: "1.2rem" }}> {commentText.userId.name}</p>
                               <p> @{comment.userId.username}</p> */}
                               <p style={{ fontWeight: "bold", fontSize: "1.2rem" }}>
-                                {commentText.userId?.name || "Unknown User"}
+                                {postComment.userId?.name || "Unknown User"}
                               </p>
-                              <p>@{commentText.userId?.username || "unknown"}</p>
+                              <p>@{postComment.userId?.username || "unknown"}</p>
                             </div>
                           </div>
 
                           <p>
-                            {comment.body}
+                            {postComment.body}
                           </p>
                         </div>
                       )

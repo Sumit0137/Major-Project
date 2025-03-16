@@ -17,26 +17,180 @@ const convertUserDataToPdf= async(userData)=>{
 
     doc.pipe(stream);
 
-    doc.image(`uploads/${userData.userId.profilePicture}` , {align:"center",width:100})
-    doc.fontSize(14).text(`Name: ${userData.userId.name}`);
-    doc.fontSize(14).text(`Username: ${userData.userId.username}`);
-    doc.fontSize(14).text(`Email: ${userData.userId.email}`);
-    doc.fontSize(14).text(`Bio: ${userData.bio}`);
-    doc.fontSize(14).text(`Current Position:${userData.currentPosition}`);
+    // doc.image(`uploads/${userData.userId.profilePicture}` , {align:"center",width:100,})
+    // Define circle properties
+    // const imageX = 250; // Adjust for centering
+    // const imageY = 50;  // Position at top
+    // const imageRadius = 50;
 
-    doc.fontSize(14).text("Past Work: ")
-    userData.pastWork.forEach((work,index)=>{
-        doc.fontSize(14).text(`Company Name:${work.companyName}`);
-        doc.fontSize(14).text(`Position:${work.position}`);
-        doc.fontSize(14).text(`Years:${work.years}`)
+    // if (userData.userId.profilePicture) {
+    //     doc.save();
+    //     doc.circle(imageX + imageRadius, imageY + imageRadius, imageRadius).clip();
+    //     doc.image(`uploads/${userData.userId.profilePicture}`, imageX, imageY, {
+    //         width: imageRadius * 2,
+    //         height: imageRadius * 2
+    //     });
+    //     doc.restore();
+    // }
 
-    })
-    doc.end();
+
+
+    // doc.fontSize(14).text(`Name: ${userData.userId.name}`);
+    // doc.fontSize(14).text(`Username: ${userData.userId.username}`);
+    // doc.fontSize(14).text(`Email: ${userData.userId.email}`);
+    // doc.fontSize(14).text(`Bio: ${userData.bio}`);
+    // doc.fontSize(14).text(`Current Position:${userData.currentPost}`);
+    // // doc.fontSize(14).text(`Current Position:${work.position}`);
+
+
+    // doc.fontSize(14).text("Past Work: ")
+    // userData.pastWork.forEach((work,index)=>{
+    //     doc.fontSize(14).text(`Company Name:${work.company}`);
+    //     doc.fontSize(14).text(`Position:${work.position}`);
+    //     doc.fontSize(14).text(`Years:${work.years}`)
+
+    // })
+    // doc.end();
    
+    // return outputPath;
+
+// }
+// Add Profile Picture
+// Draw Circular Profile Picture
+
+    // Draw Circular Profile Picture (Left-Aligned)
+   
+    // Draw Circular Profile Picture (Left-Aligned)
+    if (userData.userId.profilePicture) {
+        const imgX = 50; // Left aligned
+        const imgY = doc.y; // Current Y position
+        const imgSize = 100; // Image size
+    
+        // Draw circular profile picture
+        doc
+            .save()
+            .circle(imgX + imgSize / 2, imgY + imgSize / 2, imgSize / 2) // Perfect Circle
+            .clip()
+            .image(`uploads/${userData.userId.profilePicture}`, imgX, imgY, {
+                width: imgSize,
+                height: imgSize,
+            })
+            .restore();
+    
+        doc.y = imgY + imgSize + 15; // Move Y position below the image with enough gap
+    }
+    
+    // Name and Contact Information (Left Aligned)
+    doc
+        .fontSize(20)
+        .font("Helvetica-Bold")
+        .text(`${userData.userId.name}`, { align: "left" })
+        .moveDown(0.5);
+    
+    doc
+        .fontSize(14)
+        .font("Helvetica")
+        .text(`Username: ${userData.userId.username}`, { align: "left" })
+        .moveDown(0.5); // Extra spacing added
+    
+    doc
+        .fontSize(14)
+        .text(`Email: ${userData.userId.email}`, { align: "left" })
+        .moveDown(1);
+    
+    doc
+        .moveTo(50, doc.y)
+        .lineTo(550, doc.y)
+        .stroke()
+        .moveDown(1);
+    
+    // Bio Section
+    doc
+        .fontSize(16)
+        .font("Helvetica-Bold")
+        .text("Bio", { underline: true, align: "left" })
+        .moveDown(0.5);
+    
+    doc
+        .fontSize(12)
+        .font("Helvetica")
+        .text(userData.bio || "No bio provided", { align: "left" })
+        .moveDown(1);
+    
+    doc
+        .moveTo(50, doc.y)
+        .lineTo(550, doc.y)
+        .stroke()
+        .moveDown(1);
+    
+    // Current Position
+    // doc
+    //     .fontSize(16)
+    //     .font("Helvetica-Bold")
+    //     .text("Current Position", { underline: true, align: "left" })
+    //     .moveDown(0.5);
+    
+    // doc
+    //     .fontSize(12)
+    //     // .text(userData.currentPost || "Not specified", { align: "left" })
+    //     // .text(userData.currentPost ? userData.currentPost : "Not specified", { align: "left" })
+    //     .text(userData.currentPost && typeof userData.currentPost === "string" ? userData.currentPost : "Not specified", { align: "left" })
+    //     .moveDown(1);
+       
+    // doc
+    //     .moveTo(50, doc.y)
+    //     .lineTo(550, doc.y)
+    //     .stroke()
+    //     .moveDown(1);
+    
+
+    
+    // Past Work Experience
+    doc
+        .fontSize(16)
+        .font("Helvetica-Bold")
+        .text("Past Work Experience", { underline: true, align: "left" })
+        .moveDown(0.5);
+    
+    if (userData.pastWork && userData.pastWork.length > 0) {
+        userData.pastWork.forEach((work) => {
+            doc
+                .fontSize(14)
+                .font("Helvetica-Bold")
+                // .text(`Company: ${work.companyName}`, { align: "left" })
+                .text(`Company: ${work.company}`, { align: "left" })
+                .moveDown(0.2);
+    
+            doc
+                .fontSize(12)
+                .font("Helvetica")
+                .text(`Position: ${work.position}`, { align: "left" })
+                .moveDown(0.2);
+    
+            doc
+                .fontSize(12)
+                .text(`Years: ${work.years}`, { align: "left" })
+                .moveDown(0.8);
+        });
+    } else {
+        doc
+            .fontSize(12)
+            .text("No past work experience listed", { align: "left" })
+            .moveDown(1);
+    }
+    
+    doc
+        .moveTo(50, doc.y)
+        .lineTo(550, doc.y)
+        .stroke()
+        .moveDown(1);
+    
+    // End the PDF
+    doc.end();
+    
     return outputPath;
-
-}
-
+    
+};
 
 export const register= async(req,res)=>{
 

@@ -31,10 +31,10 @@ export default function Discoverpage() {
                 <div  onClick ={()=>{
                   router.push(`/view_profile/${user.userId.username}`)
                 }}key={user._id} className={styles.userCard}>
-                  <img className={styles.userCard__image} src={`${BASE_URL}/${user.userId.profilePicture}`} alt="profile" />
+                  <img className={styles.userCard__image} src={`${BASE_URL}/${user?.userId?.profilePicture}`} alt="profile" />
                   <div>
-                    <h1>{user.userId.name}</h1>
-                    <p>{user.userId.username}</p>
+                    <h1>{user?.userId?.name}</h1>
+                    <p>{user?.userId?.username}</p>
                   </div>
                 </div>
               )

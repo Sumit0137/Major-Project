@@ -70,6 +70,8 @@
     width:100%;
     border-radius: 10px 10px 0px 0px;
     border-bottom:1px solid rgb(179,179,179);
+    /*  */
+    position: relative;
 }
 
 .singleCard__profileContainer{
@@ -118,6 +120,7 @@
 .singleOption__optionsContainer>svg{
     height:100%;
     width:8%;
+    min-width: 1rem;
 }
 
 .commentsContainer {
@@ -135,8 +138,10 @@
 }
 
 .allCommentsContainer {
-    width:40vw;
+    /* width:40vw; */
+    min-width:40svw;
     height:80vh;
+    max-width:1120px;
     background:white;
     border-radius:10px;
     position:relative;
@@ -177,4 +182,10 @@
     text-align:center;
     color:White;
     cursor:pointer;
+}
+
+@media screen and (max-width:600px){
+    .allCommentsContainer{
+        width:90%;
+    }
 }

@@ -61,7 +61,7 @@ export default function ViewProfilePage({ userProfile }) {
       }
     }
 
-  }, [authState.connections, userProfile.userId._id,authState.connectionRequest]);
+  }, [authState.connections, userProfile.userId._id, authState.connectionRequest]);
 
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function ViewProfilePage({ userProfile }) {
           </div>
 
           <div className={styles.profileContainer__details}>
-            <div style={{ display: "flex", gap: "0.7rem" }}>
+            <div className={styles.profileContainer__flex}>
 
               <div style={{ flex: "0.8" }}>
 
@@ -86,7 +86,7 @@ export default function ViewProfilePage({ userProfile }) {
                   <p style={{ color: "grey" }}> @{userProfile.userId.username}</p>
                 </div>
 
-                <div style={{ display: "flex",alignItems:"center",gap:"1.2rem"}}>
+                <div style={{ display: "flex", alignItems: "center", gap: "1.2rem" }}>
                   {isCurrentUserInConnection ?
                     <button className={styles.connectedButton}>
                       {isConnectionNull ? "Pending" : "Connected"}
@@ -96,17 +96,38 @@ export default function ViewProfilePage({ userProfile }) {
                       dispatch(sendConnectionRequest({ token: localStorage.getItem("token"), user_id: userProfile.userId._id }))
                     }} className={styles.connectBtn}> Connect</button>}
 
-                  <div onClick={async()=>{
+
+                  {/* <div onClick={async()=>{
                     const response=await clientServer.get(`/user/download_resume?id=${userProfile.userId._id}`);
                     window.open(`${BASE_URL}/${response.data.message}`,"_blank")
-                  }}style={{cursor:"pointer"}}>
-                    <svg style={{width:"1.2em"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                  }}style={{cursor:"pointer"}}> */}
+
+                  
+                  <div
+                    onClick={async () => {
+                      try {
+                        const response = await clientServer.get(
+                          `/user/download_resume?id=${userProfile.userId._id}`
+                        );
+
+                        if (response.data.message) {
+                          window.open(`${BASE_URL}/${response.data.message}`, "_blank");
+                        } else {
+                          console.error("Invalid response data:", response.data);
+                        }
+                      } catch (error) {
+                        console.error("Error downloading resume:", error);
+                      }
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <svg style={{ width: "1.2em" }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
                     </svg>
 
                   </div>
                 </div>
-                
+
                 <div>
                   <p>{userProfile.bio}</p>
                 </div>

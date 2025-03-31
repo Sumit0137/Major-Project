@@ -193,7 +193,7 @@ const convertUserDataToPdf= async(userData)=>{
 };
 
 export const register= async(req,res)=>{
-
+ 
     console.log(req.body);
     try{
         const{name,email,password,username}=req.body;
